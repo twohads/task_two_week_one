@@ -5,10 +5,10 @@ require_once 'src/functions.php';
 /* $hotKey = ['Ctrl + ALT + L','Ctrl + Shift + F', 'Ctrl + Shift + up', 'ALT + Shift + down']; - Как передать в task1
 ссылку на массив в виде переменной? */
 
-//task1(['Ctrl + ALT + L','Ctrl + Shift + F', 'Ctrl + Shift + up', 'ALT + Shift + down'], false);
+//task1(['Ctrl + ALT + L','Ctrl + Shift + F', 'Ctrl + Shift + up', 'ALT + Shift + down']);
 
 
-//echo task2(3, 1,2,3);
+echo task2('/', 8, 2, 2);
 
 //echo task3(1, 5);
 

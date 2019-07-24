@@ -2,11 +2,10 @@
 
 function task1(array $srtArray, $mode = true)
 {
-    $res = null;
     for ($i = 0; $i < sizeof($srtArray); $i++) {
 
         if ($mode) {
-            echo $res .= $srtArray[$i];
+            echo $srtArray[$i];
         } else {
             echo "<p>" . $srtArray[$i] . "</p>";
         }
@@ -26,35 +25,36 @@ function task2($op, ...$arg)
 
     for ($i = 0; $i < sizeof($arg); $i++) {
 
-        if (is_int($arg[$i]) || is_float($i)) {
+        if (!is_int($arg[$i]) && !is_float($arg[$i])) {
+            return "Аргументы должны быть числом";
+        } elseif ($op === "/" && $arg[$i] === 0) {
+            return 'Делить на 0 нельзя';
+        }
 
-            if ($op === "+") {
-                $res += $arg[$i];
-            } elseif ($op === "-") {
+        if ($op === "+") {
+            //  echo $res . "   ";
+            $res += $arg[$i];
+        } elseif ($op === "-") {
+            if($res === 0){
+                $res = $arg[$i];
+            }else {
                 $res -= $arg[$i];
-            } elseif ($op === "*") {
-                if ($res === 0) {
-                    $res = $arg[0];
-                } else {
-                    $res *= $arg[$i];
-                }
-            } elseif ($op === "/") {
-                if ($res === 0) {
-                    $res = $arg[0];
-                } elseif ($arg[$i] !== $arg[0] && $arg[$i] === 0) {
-                    return 'Делить на 0 нельзя';
-                } elseif (sizeof($arg) === 1 && $arg[0] === 0) {
-                    // Условие sizeof($arg) === 1 не срабатывает, хотя должен. Подскажите где ошибка?
-                    return 'Делить на 0 нельзя';
-                } else {
-                    $res /= $arg[$i];
-                }
-            } else {
-                return 'Неверный оператор';
             }
-
+            // echo $res . "   ";
+        } elseif ($op === "*") {
+            if($res === 0){
+                $res = $arg[$i];
+            }else {
+                $res *= $arg[$i];
+            }
+        } elseif ($op === "/") {
+            if($res === 0){
+                $res = $arg[$i];
+            }else {
+                $res /= $arg[$i];
+            }
         } else {
-            return "Аргументы должны быть строкой";
+            return 'Неверный оператор';
         }
     }
 
@@ -64,21 +64,26 @@ function task2($op, ...$arg)
 
 function task3(int $rowMake, int $colMake)
 {
-    echo "<table>";
+    if ($rowMake && $colMake <= 0) {
+        echo "<table>";
 
-    for ($row = 1; $row <= $rowMake; $row++) {
-        echo "<tr>";
+        for ($row = 1; $row <= $rowMake; $row++) {
+            echo "<tr>";
 
-        for ($col = 1; $col <= $colMake; $col++) {
+            for ($col = 1; $col <= $colMake; $col++) {
 
-            echo "<td>" . $col * $row . "</td>";
+                echo "<td>" . $col * $row . "</td>";
 
-        }
+            }
 
-        echo "</tr>";
-    };
+            echo "</tr>";
+        };
 
-    echo "</table>";
+        echo "</table>";
+    } else {
+        return print_r('Аргументы не могут быть 0 или отрицательным числом');
+    }
+
 }
 
 function task4()
@@ -100,6 +105,5 @@ function task5(string $str, $mode = 1)
 
 function task6(string $text)
 {
-    $putText = $text;
-    file_put_contents('test.txt', $putText);
+    file_put_contents('test.txt', $text);
 }
